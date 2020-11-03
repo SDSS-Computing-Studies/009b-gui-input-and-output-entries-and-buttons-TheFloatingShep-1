@@ -16,51 +16,65 @@ import tkinter as tk
 from tkinter import *
 import math
 
+main = tk.Tk()
+main.title("METH")
+
 answer = StringVar()
 answer.set("ANSWER")
 
-def doTheThingThatPutsNumbersTogetherAndGetsAnOutput():
-    output = 1 + 1
+def toggleA():
+    if buttonA["text"] == "+":
+        buttonA["text"] = "-"
+    else:
+        buttonA["text"] = "+"
+
+def toggleB():
+    if buttonB["text"] == "+":
+        buttonB["text"] = "-"
+    else:
+        buttonB["text"] = "+"
+
+def do():
+    b = float(inputB.get())
+    c = float(inputC.get())
+    if buttonA["text"] == "-":
+        b = b * -1
+    if buttonB["text"] == "-":
+        c = c * -1
+    thing = [((-b + (math.sqrt((b**2) - 4 * 1 * c))) / (2 * 1)),((-b - (math.sqrt((b**2) - 4 * 1 * c))) / (2 * 1))]
     output.delete(0,END)
-    output.insert(0,output)
+    output.insert(0,thing)
 
 # Create everything
-main = tk.Tk()
-main.title("METH")
 
 instruction = tk.Label(text = "INSTRUCTIONS: Figure it out yourself")
 
 frameA = tk.Frame()
-frameB = tk.Frame()
-frameC = tk.Frame()
 frameX = tk.Frame()
 
-inputA = tk.Entry(master = frameA)
-inputB = tk.Entry(master = frameB)
-inputC = tk.Entry(master = frameC)
+inputB = tk.Entry(master = frameA, width = 5)
+inputC = tk.Entry(master = frameA, width = 5)
 
-labelA = tk.Label(master = frameA, text = "A = 1")
-labelB = tk.Label(master = frameB, text = "B")
-labelC = tk.Label(master = frameC, text = "C")
+labelA = tk.Label(master = frameA, text = "x^2")
+labelB = tk.Label(master = frameA, text = "x")
 
-button = tk.Button(master = frameX, text = "Factor", command = lambda: doTheThingThatPutsNumbersTogetherAndGetsAnOutput)
+button = tk.Button(master = frameX, text = "Factor", command = do)
+buttonA = tk.Button(master = frameA, text = "+", command = toggleA)
+buttonB = tk.Button(master = frameA, text = "+", command = toggleB)
 
-output = tk.Entry(master = frameX, textvariable = answer)
+output = Entry(master = frameX, textvariable = answer)
 
 # PACKING EVERYTIHINGSNGSNDG
 instruction.pack()
 
 frameA.pack()
-frameB.pack()
-frameC.pack()
 frameX.pack()
 
 labelA.pack(side = LEFT)
-labelB.pack(side = LEFT)
-labelC.pack(side = LEFT)
-
-#inputA.pack(side = LEFT)
+buttonA.pack(side = LEFT)
 inputB.pack(side = LEFT)
+labelB.pack(side = LEFT)
+buttonB.pack(side = LEFT)
 inputC.pack(side = LEFT)
 
 button.pack(side = LEFT)
